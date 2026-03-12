@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <title>AR Shape Explorer 📚</title>
+    
+    <!-- Variant Launch WebXR SDK for iOS cross-platform AR support (no auto-redirect) -->
+    <script src="https://launchar.app/sdk/v1?key=enmBGWVPGN7oVMYedmZiuhSP5hnslAK7"></script>
+    
+    <!-- Modern font for educational UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <!-- WebXR DOM Overlay Root -->
+    <div id="overlay">
+        
+        <!-- Top Status Bar -->
+        <header id="status-bar" class="hidden">
+            <div class="status-indicator">
+                <span class="pulse-dot"></span>
+                <span id="status-text">Scanning environment...</span>
+            </div>
+        </header>
+
+        <!-- Tracking Quality Prompt Overlay -->
+        <div id="tracking-prompt" class="hidden">
+            <div class="tracking-prompt-box">
+                <div class="icon">⚠️</div>
+                <p id="tracking-prompt-text">Initializing Tracking...</p>
+            </div>
+        </div>
+
+        <!-- Initial Start Screen -->
+        <div id="start-screen" class="panel">
+            <div class="header-icon">📐</div>
+            <h1 class="title">AR Shape Explorer</h1>
+            <p class="subtitle">Learn 3D geometry interactively in Augmented Reality.</p>
+            <div class="loading-state" id="loading-container">
+                <div class="spinner"></div>
+                <p>Checking Device Capabilities</p>
+            </div>
+            
+            <div id="ar-button-container" class="hidden"></div>
+            
+            <button id="launch-ios-btn" class="ios-launch-btn hidden">
+                Enter AR Classroom
+            </button>
+            
+            <p class="warning" id="ar-warning" style="display: none;">WebXR AR is not supported on this device/browser.</p>
+        </div>
+
+        <!-- AR Instructions -->
+        <div id="ar-instructions" class="hidden">
+            <div class="instruction-box">
+                <div class="icon">👆</div>
+                <p><strong>Place:</strong> Tap on a flat surface<br><strong>Rotate:</strong> Drag<br><strong>Zoom:</strong> Pinch<br><strong>Color:</strong> Tap shape</p>
+            </div>
+        </div>
+
+        <!-- Educational Info Card (Bottom) -->
+        <div id="info-card" class="hidden">
+            <h2 id="shape-name">Shape Name</h2>
+            <div class="properties-grid">
+                <div class="prop"><span class="label">Faces</span><span id="shape-faces" class="value">-</span></div>
+                <div class="prop"><span class="label">Edges</span><span id="shape-edges" class="value">-</span></div>
+                <div class="prop"><span class="label">Vertices</span><span id="shape-vertices" class="value">-</span></div>
+            </div>
+            <div class="formulas">
+                <p><strong>Volume:</strong> <span id="shape-vol">-</span></p>
+                <p><strong>Surface Area:</strong> <span id="shape-sa">-</span></p>
+            </div>
+        </div>
+
+        <!-- Shape Selection Controls (Top/Side) -->
+        <nav id="controls" class="hidden">
+            <button id="btn-cube" class="control-btn active" data-shape="cube">🟦 Cube</button>
+            <button id="btn-sphere" class="control-btn" data-shape="sphere">🔵 Sphere</button>
+            <button id="btn-cone" class="control-btn" data-shape="cone">🔺 Cone</button>
+            <button id="btn-cylinder" class="control-btn" data-shape="cylinder">🛢️ Cylinder</button>
+        </nav>
+        
+        <!-- Danger Controls -->
+        <div id="danger-controls" class="hidden">
+            <button id="btn-clear" class="control-btn danger">🗑️ Clear All</button>
+        </div>
+
+    </div>
+
+    <!-- Main JavaScript Modules -->
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>

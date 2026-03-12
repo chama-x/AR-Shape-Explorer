@@ -1,0 +1,385 @@
+/** 
+ * AR Shape Explorer - Educational Premium UI
+ */
+
+:root {
+    --primary: #4F46E5; /* Indigo */
+    --accent: #10B981; /* Emerald */
+    --bg-surface: rgba(15, 23, 42, 0.75); /* Slate */
+    --bg-surface-blur: blur(16px);
+    --text-main: #FFFFFF;
+    --text-dim: #94A3B8;
+    --danger: #EF4444;
+    --border-radius: 16px;
+    --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: #0F172A;
+    font-family: 'Outfit', sans-serif;
+    overflow: hidden;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Re-enable pointer events ONLY for interactive UI elements */
+#start-screen,
+#controls .control-btn,
+#danger-controls .control-btn,
+#ar-button-container button {
+    pointer-events: auto;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- Top Status Bar --- */
+#status-bar {
+    padding: 20px 20px 0;
+    display: flex;
+    justify-content: center;
+    transition: opacity 0.3s;
+}
+
+.status-indicator {
+    background: var(--bg-surface);
+    backdrop-filter: var(--bg-surface-blur);
+    -webkit-backdrop-filter: var(--bg-surface-blur);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px 16px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+.pulse-dot.scanning { background-color: var(--primary); }
+.pulse-dot.ready { background-color: var(--accent); }
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+    70% { transform: scale(1.2); opacity: 0.8; box-shadow: 0 0 0 8px rgba(79, 70, 229, 0); }
+    100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+}
+
+#status-text {
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* --- Initial Start Screen --- */
+#start-screen {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 40%, rgba(15,23,42,1) 100%);
+    padding: 80px 24px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.header-icon {
+    font-size: 72px;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 4px 16px rgba(79, 70, 229, 0.6));
+}
+
+.title {
+    color: var(--text-main);
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--text-dim);
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 32px;
+    max-width: 300px;
+}
+
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* ARButton Overrides */
+#ar-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#ar-button-container button {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 320px;
+    height: 56px !important;
+    background: var(--primary) !important;
+    color: #FFF !important;
+    border: none !important;
+    border-radius: 28px !important;
+    font-family: inherit !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.4) !important;
+    transition: transform 0.2s, background 0.2s !important;
+}
+
+#ar-button-container button:active {
+    transform: scale(0.96) !important;
+}
+
+/* Custom iOS Launch Button */
+.ios-launch-btn {
+    width: 100%;
+    max-width: 320px;
+    height: 56px;
+    background: var(--primary);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 28px;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.4);
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ios-launch-btn:active {
+    transform: scale(0.96);
+}
+
+/* Tracking Quality Prompt */
+#tracking-prompt {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 340px;
+    z-index: 10;
+}
+
+.tracking-prompt-box {
+    background: rgba(239, 68, 68, 0.95);
+    backdrop-filter: var(--bg-surface-blur);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+}
+
+.tracking-prompt-box p {
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* AR Instructions */
+#ar-instructions {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 300px;
+}
+
+.instruction-box {
+    background: var(--bg-surface);
+    backdrop-filter: var(--bg-surface-blur);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.instruction-box .icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+}
+
+.instruction-box p {
+    color: var(--text-main);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Controls Map */
+#controls {
+    position: absolute;
+    top: 80px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#danger-controls {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.control-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+}
+
+.control-btn.danger {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #FCA5A5;
+}
+
+/* Educational Info Card */
+#info-card {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    background: var(--bg-surface);
+    backdrop-filter: var(--bg-surface-blur);
+    -webkit-backdrop-filter: var(--bg-surface-blur);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    color: var(--text-main);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+#shape-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--accent);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 12px;
+}
+
+.properties-grid {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.prop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.prop .label {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.prop .value {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.formulas {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.formulas p {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin: 4px 0;
+}
+
+.formulas strong {
+    color: var(--text-main);
+    font-weight: 500;
+}
