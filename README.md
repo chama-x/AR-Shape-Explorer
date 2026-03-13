@@ -1,7 +1,7 @@
 <div align="center">
 
 # 📐 SHAPE EXPLORER AR
-**Geometric Precision • Educational Clarity • Spatial Intelligence**
+**Geometric Visualization • Educational Interaction • Spatial Logic**
 
 [![Vercel](https://img.shields.io/badge/Deployed-Vercel-000000?style=for-the-badge&logo=vercel)](https://ar-shape-explorer.vercel.app)
 [![Three.js](https://img.shields.io/badge/Three.js-r183-4F46E5?style=for-the-badge&logo=three.js)](https://threejs.org)
@@ -10,22 +10,22 @@
 
 ---
 
-### PHILOSOPHY
-A transformation of abstract geometry into tangible spatial experiences. Shape Explorer AR bridges the gap between theoretical calculations and visual perception, allowing users to manipulate 3D primitives in real-world environments.
+### Overview
+Shape Explorer AR transforms abstract geometric concepts into interactive spatial experiences. It enables users to place and manipulate 3D primitives in their real-world environment to better understand spatial relationships and mathematical logic.
 
-### CORE CAPABILITIES
-- **Primitive Manipulation**: Interactive 3D shapes including Cubes, Spheres, Cones, Cylinders, and Torii.
-- **Spatial UX**: Adaptive gestures for rotation and scale with physics-based clamping.
-- **Educational Overlay**: Real-time formula injection for Volumes and Surface Areas.
-- **Visual Fidelity**: Pure geometry rendering with metallic/roughness material balancing for realistic lighting.
+### Core Functionality
+- **Primitive Library**: Interactive 3D models including Cube, Sphere, Cone, Cylinder, and Torus.
+- **Spatial UX**: Adaptive gesture system for rotation and scale with constrained movement bounds.
+- **Mathematical Integration**: Dynamic formulas for Volume and Surface Area displayed in real-time.
+- **Visual Fidelity**: Physically-based rendering (PBR) materials with realistic environment lighting.
 
-### TECHNOLOGY
-- **Core**: JavaScript ES6+ / Three.js
-- **Environment**: WebXR + Variant Launch (Universal iOS/Android support)
-- **UI Architecture**: Glassmorphism layer with hardware-accelerated animations.
+### Stack
+- **Library**: Three.js (r183)
+- **Framework**: WebXR + Variant Launch (Universal iOS/Android support)
+- **Interface**: Hardware-accelerated CSS3 UI with glassmorphism layers.
 
 ---
 
 <div align="center">
-Architecting the future of spatial education.
+Bridging theoretical geometry and spatial perception.
 </div>
