@@ -24,9 +24,6 @@ A transformation of abstract geometry into tangible spatial experiences. Shape E
 - **Environment**: WebXR + Variant Launch (Universal iOS/Android support)
 - **UI Architecture**: Glassmorphism layer with hardware-accelerated animations.
 
-### STUDENT IDENTITY
-**Index**: `ICT / 21 / 846`
-
 ---
 
 <div align="center">
