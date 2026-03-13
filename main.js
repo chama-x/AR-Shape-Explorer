@@ -18,6 +18,10 @@ const SHAPE_DATA = {
     cylinder: {
         name: "Cylinder", faces: "3", edges: "2", vertices: "0",
         vol: "πr²h", sa: "2πrh + 2πr²"
+    },
+    torus: {
+        name: "Torus", faces: "1", edges: "0", vertices: "0",
+        vol: "2π²Rr²", sa: "4π²Rr"
     }
 };
 
@@ -51,18 +55,26 @@ const ui = {
     shapeEdges: document.getElementById('shape-edges'),
     shapeVertices: document.getElementById('shape-vertices'),
     shapeVol: document.getElementById('shape-vol'),
-    shapeSa: document.getElementById('shape-sa')
+    shapeSa: document.getElementById('shape-sa'),
+    introScreen: document.getElementById('intro-screen'),
+    enterBtn: document.getElementById('enter-app-btn')
 };
 
 let selectedShapeType = 'cube';
 
-// Gesture State
-let isDragging = false;
-let previousTouchPos = { x: 0, y: 0 };
-let initialPinchDistance = 0;
-let initialScale = 1;
-
+handleIntro();
 init();
+
+function handleIntro() {
+    setTimeout(() => {
+        ui.introScreen.classList.add('loaded');
+    }, 2000);
+
+    ui.enterBtn.addEventListener('click', () => {
+        ui.introScreen.classList.add('fade-out');
+        if (navigator.vibrate) navigator.vibrate(50);
+    });
+}
 
 function init() {
     scene = new THREE.Scene();
@@ -183,6 +195,7 @@ function placeShape(type, matrix) {
         case 'sphere': geometry = new THREE.SphereGeometry(0.12, 32, 16); break;
         case 'cone': geometry = new THREE.ConeGeometry(0.12, 0.25, 32); break;
         case 'cylinder': geometry = new THREE.CylinderGeometry(0.1, 0.1, 0.25, 32); break;
+        case 'torus': geometry = new THREE.TorusGeometry(0.12, 0.04, 16, 100); break;
     }
 
     const material = new THREE.MeshStandardMaterial({ 
@@ -209,7 +222,22 @@ function placeShape(type, matrix) {
     activeShapes.push(mesh);
     
     // Automatically select the newest placed shape for manipulation
+    selectShape(mesh);
+}
+
+function selectShape(mesh) {
+    // Clear previous selection highlight
+    if (currentSelectedShape && currentSelectedShape !== mesh) {
+        currentSelectedShape.material.emissive.setHex(0x000000);
+    }
+
     currentSelectedShape = mesh;
+    
+    // Pulse highlight
+    if (mesh) {
+        mesh.material.emissive.setHex(0x333333);
+        updateEducationalInfo(mesh.userData.type);
+    }
 }
 
 // --- Gestures (Drag, Pinch, Tap) ---
@@ -279,11 +307,11 @@ function setupGestures() {
             const intersects = raycaster.intersectObjects(activeShapes);
             if (intersects.length > 0) {
                 const tappedShape = intersects[0].object;
-                currentSelectedShape = tappedShape; // Make it active
+                selectShape(tappedShape);
                 
-                // Cycle color
-                tappedShape.userData.colorIndex = (tappedShape.userData.colorIndex + 1) % COLOR_PALETTE.length;
-                tappedShape.material.color.setHex(COLOR_PALETTE[tappedShape.userData.colorIndex]);
+                // Cycle color (if secondary tap)
+                // tappedShape.userData.colorIndex = (tappedShape.userData.colorIndex + 1) % COLOR_PALETTE.length;
+                // tappedShape.material.color.setHex(COLOR_PALETTE[tappedShape.userData.colorIndex]);
                 
                 // Update info card to match tapped shape
                 updateEducationalInfo(tappedShape.userData.type);

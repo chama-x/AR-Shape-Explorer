@@ -383,3 +383,109 @@ body, html {
     color: var(--text-main);
     font-weight: 500;
 }
+
+/* --- Geometric Intro Screen Styles --- */
+#intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0F172A;
+    background-image: 
+        linear-gradient(rgba(79, 70, 229, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79, 70, 229, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+}
+
+#intro-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.intro-content {
+    text-align: center;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 32px;
+    max-width: 85%;
+}
+
+.svg-container {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 30px;
+    filter: drop-shadow(0 0 15px rgba(79, 70, 229, 0.5));
+}
+
+.intro-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.student-id {
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 30px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.intro-loader {
+    width: 150px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 auto 40px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.loader-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+    animation: loadBar 2s ease-in-out forwards;
+}
+
+.enter-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 16px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s;
+    pointer-events: auto;
+}
+
+#intro-screen.loaded .enter-btn {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.enter-btn:hover {
+    background: #4338CA;
+    transform: translateY(-2px);
+}
+
+@keyframes loadBar {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+

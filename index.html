@@ -21,6 +21,34 @@
 
 <body>
     <!-- WebXR DOM Overlay Root -->
+    <!-- Geometric Intro Screen -->
+    <div id="intro-screen">
+        <div class="intro-content">
+            <div class="svg-container">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Morphing Geometric Patterns -->
+                    <rect x="50" y="50" width="100" height="100" fill="none" stroke="#4F46E5" stroke-width="2">
+                        <animate attributeName="width" values="100;40;100" dur="4s" repeatCount="indefinite" />
+                        <animate attributeName="height" values="100;40;100" dur="4s" repeatCount="indefinite" />
+                        <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="10s" repeatCount="indefinite" />
+                    </rect>
+                    <circle cx="100" cy="100" r="40" fill="none" stroke="#10B981" stroke-width="2">
+                        <animate attributeName="r" values="40;70;40" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                    <polygon points="100,30 170,150 30,150" fill="none" stroke="#EC4899" stroke-width="2">
+                        <animateTransform attributeName="transform" type="rotate" from="360 100 100" to="0 100 100" dur="8s" repeatCount="indefinite" />
+                    </polygon>
+                </svg>
+            </div>
+            <h1 class="intro-title">SHAPE EXPLORER</h1>
+            <div class="student-id">ICT / 21 / 846</div>
+            <div class="intro-loader">
+                <div class="loader-bar"></div>
+            </div>
+            <button id="enter-app-btn" class="enter-btn">START LEARNING</button>
+        </div>
+    </div>
+
     <div id="overlay">
         
         <!-- Top Status Bar -->
@@ -86,6 +114,7 @@
             <button id="btn-sphere" class="control-btn" data-shape="sphere">🔵 Sphere</button>
             <button id="btn-cone" class="control-btn" data-shape="cone">🔺 Cone</button>
             <button id="btn-cylinder" class="control-btn" data-shape="cylinder">🛢️ Cylinder</button>
+            <button id="btn-torus" class="control-btn" data-shape="torus">🍩 Torus</button>
         </nav>
         
         <!-- Danger Controls -->
