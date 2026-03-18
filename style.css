@@ -30,6 +30,11 @@ body, html {
     overflow: hidden;
 }
 
+body.ar-session-active,
+body.ar-session-active html {
+    background-color: transparent !important;
+}
+
 #overlay {
     position: absolute;
     top: 0;

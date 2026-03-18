@@ -34,6 +34,12 @@ let reticle;
 let activeShapes = []; // Array of placed shapes
 let currentSelectedShape = null; // The shape currently being manipulated
 
+// Gesture state variables
+let isDragging = false;
+let previousTouchPos = { x: 0, y: 0 };
+let initialPinchDistance = 0;
+let initialScale = 1;
+
 // UI Elements
 const ui = {
     startScreen: document.getElementById('start-screen'),
@@ -327,6 +333,7 @@ function setupGestures() {
 
 function onSessionStart() {
     ui.startScreen.style.display = 'none';
+    document.body.classList.add('ar-session-active');
     setTimeout(() => {
         ui.statusBar.classList.remove('hidden');
         ui.instructions.classList.remove('hidden');
@@ -345,6 +352,7 @@ function onSessionEnd() {
     ui.dangerControls.classList.add('hidden');
     ui.trackingPrompt.classList.add('hidden');
     ui.infoCard.classList.add('hidden');
+    document.body.classList.remove('ar-session-active');
     reticle.visible = false;
 }
 
